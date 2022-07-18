@@ -1,21 +1,23 @@
 {
-  "name": "notion-sdk-project",
+  "name": "print-item-cards",
   "version": "1.0.0",
-  "description": "",
+  "description": "Generate printable item cards from items database",
   "main": "dist/index.js",
   "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "ts-node src/index.ts",
+    "start:pdf": "ts-node src/pdf.ts",
     "typecheck": "tsc --noEmit",
     "build": "tsc",
     "format": "prettier --write src/**/*.ts"
   },
   "keywords": [],
-  "author": "",
+  "author": "Gulfaraz Rahman",
   "dependencies": {
     "@notionhq/client": "^2.0.0",
-    "dotenv": "^16.0.1"
+    "dotenv": "^16.0.1",
+    "pdf-creator-node": "^2.3.4"
   },
   "devDependencies": {
     "@types/dotenv": "^8.2.0",
