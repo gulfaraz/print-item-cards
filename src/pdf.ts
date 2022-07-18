@@ -17,7 +17,9 @@ function calculateCardSize(card: any) {
     card.description.length +
     (newLinesCount + (card.attunement && card.attunement.length > 0 ? 2 : 0)) *
       newLinesWeight;
-  if (descriptionLength > 650) {
+  if (descriptionLength > 1200) {
+    cardSize = 3;
+  } else if (descriptionLength > 650) {
     cardSize = 2;
   } else if (descriptionLength > 300) {
     cardSize = 1;
@@ -31,10 +33,14 @@ function sortCards(cards: any[]) {
 }
 
 function batchCards(cards: any[]) {
+  const extraLargeCards = cards.filter((card) => card.cardSize == 3);
   const largeCards = cards.filter((card) => card.cardSize == 2);
   const mediumCards = cards.filter((card) => card.cardSize == 1);
   const smallCards = cards.filter((card) => card.cardSize == 0);
   const batchedCards = [];
+  while (extraLargeCards.length > 0) {
+    batchedCards.push([extraLargeCards.pop()]);
+  }
   while (largeCards.length > 0 && smallCards.length > 0) {
     batchedCards.push([largeCards.pop(), smallCards.pop()]);
   }

@@ -23,11 +23,15 @@ const getProperty = async (notion: Client, page: any, propertyName: string) => {
     "Description (Identified)" == propertyName ||
     "Description (Exalted)" == propertyName
   ) {
-    if (property.results.length > 0)
-      propertyValue = property.results[0].rich_text.text.content;
-    else propertyValue = null;
+    if (property.results.length > 0) {
+      propertyValue = property.results
+        .map((result: any) => result.rich_text.text.content)
+        .join("");
+    } else propertyValue = null;
   } else if ("Name" == propertyName) {
-    propertyValue = property.results[0].title.text.content;
+    propertyValue = property.results
+      .map((result: any) => result.title.text.content)
+      .join("");
   } else if ("Number" == propertyName) {
     propertyValue = String(propertyValue).padStart(6, "0");
   }

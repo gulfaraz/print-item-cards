@@ -89,6 +89,10 @@
       .card.large {
         height: 440px;
       }
+
+      .card.xlarge {
+        height: 588px;
+      }
     </style>
   </head>
   <body>
@@ -100,6 +104,8 @@
       <div class="card medium">{{> itemCard}}</div>
       {{/ifCond}}{{#ifCond this.cardSize "===" 2}}
       <div class="card large">{{> itemCard}}</div>
+      {{/ifCond}}{{#ifCond this.cardSize "===" 3}}
+      <div class="card xlarge">{{> itemCard}}</div>
       {{/ifCond}}{{/each}}
     </div>
     {{/each}}
