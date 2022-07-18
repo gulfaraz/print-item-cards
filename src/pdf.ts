@@ -62,12 +62,19 @@ function batchCards(cards: any[]) {
   while (largeCards.length > 0) {
     batchedCards.push([largeCards.pop()]);
   }
+
+  if (mediumCards.length > 0 && smallCards.length > 0) {
+    batchedCards.push([mediumCards.pop(), smallCards.pop()]);
+  }
+
   while (mediumCards.length > 0) {
     batchedCards.push([mediumCards.pop()]);
   }
-  while (smallCards.length > 0) {
-    batchedCards.push([smallCards.pop()]);
+
+  if (smallCards.length > 0) {
+    batchedCards.push(smallCards);
   }
+
   return batchedCards;
 }
 
