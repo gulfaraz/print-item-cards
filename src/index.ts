@@ -36,9 +36,7 @@ const getProperty = async (notion: Client, page: any, propertyName: string) => {
 };
 
 const getItemCardValues = async (notion: Client, itemPageId: any) => {
-  const itemPage = await notion.pages.retrieve({
-    page_id: itemPageId,
-  });
+  const itemPage = await notion.pages.retrieve({ page_id: itemPageId });
 
   const number = await getProperty(notion, itemPage, "Number");
   const name = await getProperty(notion, itemPage, "Name");
@@ -57,16 +55,7 @@ const getItemCardValues = async (notion: Client, itemPageId: any) => {
     "Description (Exalted)"
   );
 
-  const itemCards = [
-    {
-      number,
-      name,
-      attunement,
-      type,
-      rarity,
-      description,
-    },
-  ];
+  const itemCards = [{ number, name, attunement, type, rarity, description }];
 
   if (descriptionIdentified) {
     const itemCardIdentified = { ...itemCards[0] };
@@ -125,9 +114,7 @@ const getItems = async (notion: Client, itemPages: any[]) => {
 };
 
 async function main() {
-  const notion = new Client({
-    auth: process.env.NOTION_TOKEN,
-  });
+  const notion = new Client({ auth: process.env.NOTION_TOKEN });
 
   const items = (
     await notion.databases.query({

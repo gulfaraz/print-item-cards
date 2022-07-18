@@ -77,7 +77,7 @@ function createPdf(filename: string, cards: any[]) {
   };
 
   const document = {
-    html: html,
+    html,
     data: { batches: cards },
     path: `./${filename}.pdf`,
     type: "pdf",
