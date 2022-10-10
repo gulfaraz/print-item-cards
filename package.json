@@ -15,7 +15,7 @@
   "keywords": [],
   "author": "Gulfaraz Rahman",
   "dependencies": {
-    "@notionhq/client": "^2.2.0",
+    "@notionhq/client": "^2.2.1",
     "dotenv": "^16.0.2",
     "pdf-creator-node": "^2.3.5"
   },
