@@ -7,7 +7,6 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "ts-node src/index.ts",
-    "start:pdf": "ts-node src/pdf.ts",
     "typecheck": "tsc --noEmit",
     "build": "tsc",
     "format": "prettier --write src/**/*.ts"

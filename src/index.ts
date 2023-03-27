@@ -14,7 +14,13 @@ const getProperty = async (notion: Client, page: any, propertyName: string) => {
 
   let propertyValue = property[property.type];
 
-  if ("Rarity" == propertyName || "Type" == propertyName) {
+  if (
+    "Rarity" == propertyName ||
+    "Type" == propertyName ||
+    "Size" == propertyName ||
+    "Size (Identified)" == propertyName ||
+    "Size (Exalted)" == propertyName
+  ) {
     if (property[property.type] && "name" in property[property.type])
       propertyValue = property[property.type].name;
   } else if (
@@ -32,7 +38,7 @@ const getProperty = async (notion: Client, page: any, propertyName: string) => {
     propertyValue = property.results
       .map((result: any) => result.title.text.content)
       .join("");
-  } else if ("Number" == propertyName) {
+  } else if ("Identifier" == propertyName) {
     propertyValue = String(propertyValue).padStart(6, "0");
   }
 
@@ -42,7 +48,7 @@ const getProperty = async (notion: Client, page: any, propertyName: string) => {
 const getItemCardValues = async (notion: Client, itemPageId: any) => {
   const itemPage = await notion.pages.retrieve({ page_id: itemPageId });
 
-  const number = await getProperty(notion, itemPage, "Number");
+  const identifier = await getProperty(notion, itemPage, "Identifier");
   const name = await getProperty(notion, itemPage, "Name");
   const attunement = await getProperty(notion, itemPage, "Attunement");
   const type = await getProperty(notion, itemPage, "Type");
@@ -58,17 +64,24 @@ const getItemCardValues = async (notion: Client, itemPageId: any) => {
     itemPage,
     "Description (Exalted)"
   );
+  const size = await getProperty(notion, itemPage, "Size");
+  const sizeIdentified =
+    (await getProperty(notion, itemPage, "Size (Identified)")) || size;
+  const sizeExalted =
+    (await getProperty(notion, itemPage, "Size (Exalted)")) || size;
 
-  const itemCards = [{ number, name, attunement, type, rarity, description }];
+  const itemCards = [
+    { identifier, name, attunement, type, rarity, description, size },
+  ];
 
   if (descriptionIdentified) {
-    const itemCardIdentified = { ...itemCards[0] };
+    const itemCardIdentified = { ...itemCards[0], size: sizeIdentified };
     itemCardIdentified.description += "\n\n" + descriptionIdentified;
     itemCards.push(itemCardIdentified);
   }
 
   if (descriptionExalted) {
-    const itemCardExalted = { ...itemCards[0] };
+    const itemCardExalted = { ...itemCards[0], size: sizeExalted };
     itemCardExalted.name = itemCardExalted.name + " (Exalted)";
     if (descriptionIdentified) {
       itemCardExalted.description += "\n\n" + descriptionIdentified;
