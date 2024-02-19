@@ -15,7 +15,7 @@
   "author": "Gulfaraz Rahman",
   "dependencies": {
     "@notionhq/client": "^2.2.14",
-    "dotenv": "^16.4.2",
+    "dotenv": "^16.4.4",
     "pdf-creator-node": "^2.3.5"
   },
   "devDependencies": {
