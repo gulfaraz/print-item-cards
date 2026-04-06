@@ -16,7 +16,7 @@
   "dependencies": {
     "@notionhq/client": "^4.0.2",
     "dotenv": "^17.4.1",
-    "pdf-creator-node": "^2.3.5"
+    "pdf-creator-node": "^4.0.1"
   },
   "devDependencies": {
     "@types/dotenv": "^8.2.3",
